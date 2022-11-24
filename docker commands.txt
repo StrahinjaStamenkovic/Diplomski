@@ -1,0 +1,61 @@
+DOCKER
+	
+	kill and delete a container:
+		docker rm -f <the-container-id>
+
+	docker build -t <image_name_tag> .
+
+	docker run -it --name <container_name> -v <vol_name>:/<path> --privileged --mount source=mp,targer=/app <image_name_tag>:latest
+
+	
+	docker run -it --name mp --privileged --network="host" --mount source=mp,target=/home/vol mp:latest
+
+	docker volume inspect <volume_name>
+
+	ANDROID:
+	
+		bash ./setup_android_sdk_and_ndk.sh
+		bash ./setup_android_sdk_and_ndk.sh /test/m1/Android/Sdk /test/m1/Android/Ndk r21
+		apt-get update
+		apt-get install android-tools-adb
+
+	building DESKTOP app:
+		GLOG_logtostderr=1 bazel run --define MEDIAPIPE_DISABLE_GPU=1 mediapipe/examples/desktop/solution_name
+
+	building ANDROID apk:
+
+		bazel build -c opt --config=android_arm64 --linkopt="-s" mediapipe/examples/android/src/java/com/google/mediapipe/apps/solution_name:build_name
+
+
+	installing with adb over USB:
+
+		adb install bazel-bin/mediapipe/examples/android/src/java/com/google/mediapipe/apps/solution_name/build_name.apk
+
+	
+	ADB server:
+
+		start an adb server in windows cmd with:
+			adb tcpip <port_num>
+
+
+	in DOCKER:
+		adb connect <device_ip>:<port_num>
+		for bluestacks: 
+			adb connect localhost:10211
+		
+		if needed:
+			adb kill-server
+
+
+	docker run -it --name mp --privileged --network="host" -v mp:/test/m1 mp:latest
+
+	export ANDROID_NDK_HOME=/test/m1/Android/Ndk/android-ndk-r21
+	export ANDROID_HOME=/test/m1/Android/Sdk
+	export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+
+	source /test/m1/set_env.sh
+
+edit DOS line endings to LINUX endings 
+tr -d '\015' <DOS-file >UNIX-file
+

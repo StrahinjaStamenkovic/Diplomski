@@ -1,0 +1,5 @@
+face_effect > mesh.cc
+	line 184 function name Gerenate instead of Generate. Fix in .h file also
+face_effect contains image of a kid 
+opengl_renderer.h
+	variable named fullscren_shader_ instead of fullscreen_shader_
